@@ -1,0 +1,18 @@
+{
+  "id": "/ghost/blog",
+  "container": {
+    "docker": {
+      "image": "janr/ghost",
+      "portMappings": [
+        {
+          "containerPort": 2368,
+          "protocol": "tcp"
+        }
+      ],
+      "network": "BRIDGE"
+    }
+  },
+  "cpus": 1,
+  "mem": 512,
+  "disk": 0
+}
