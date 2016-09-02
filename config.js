@@ -16,13 +16,13 @@ config = {
         database: {
             client: 'sqlite3',
             connection: {
-                filename: path.join(process.env.GHOST_CONTENT, '/data/ghost.db')
+                filename: path.join(__dirname, '/content/data/ghost.db')
             },
             debug: false
         },
 
         server: {
-            host: '0.0.0.0',
+            host: '127.0.0.1',
             port: '2368'
         }
     },
@@ -31,7 +31,7 @@ config = {
     development: {
         // The url to use when providing links to the site, E.g. in RSS and email.
         // Change this to your Ghost blog's published URL.
-        url: 'http://localhost:2368',
+        url: 'GHOST_URL',
 
         // Example refferer policy
         // Visit https://www.w3.org/TR/referrer-policy/ for instructions
@@ -58,10 +58,10 @@ config = {
         database: {
             client: 'mysql',
             connection: {
-                host     : 'ghostmysql.marathon.l4lb.thisdcos.directory',
-                user     : 'blog-user',
-                password : 'supersecret',
-                database : 'db',
+                host     : 'MYSQL_HOST',
+                user     : 'MYSQL_USER',
+                password : 'MYSQL_PASSWORD',
+                database : 'MYSQL_DATABASE',
                 charset  : 'utf8'
             }
         },
@@ -76,7 +76,7 @@ config = {
         // #### Paths
         // Specify where your content directory lives
         paths: {
-            contentPath: path.join(process.env.GHOST_CONTENT, '/')
+            contentPath: path.join(__dirname, '/content/')
         }
     },
 
@@ -86,11 +86,11 @@ config = {
     // Used when developing Ghost to run tests and check the health of Ghost
     // Uses a different port number
     testing: {
-        url: 'http://0.0.0.0:2369',
+        url: 'http://127.0.0.1:2369',
         database: {
             client: 'sqlite3',
             connection: {
-                filename: path.join(process.env.GHOST_CONTENT, '/data/ghost-test.db')
+                filename: path.join(__dirname, '/content/data/ghost-test.db')
             },
             pool: {
                 afterCreate: function (conn, done) {
@@ -103,7 +103,7 @@ config = {
             useNullAsDefault: true
         },
         server: {
-            host: '0.0.0.0',
+            host: '127.0.0.1',
             port: '2369'
         },
         logging: false
@@ -112,11 +112,11 @@ config = {
     // ### Testing MySQL
     // Used by Travis - Automated testing run through GitHub
     'testing-mysql': {
-        url: 'http://0.0.0.0:2369',
+        url: 'http://127.0.0.1:2369',
         database: {
             client: 'mysql',
             connection: {
-                host     : '0.0.0.0',
+                host     : '127.0.0.1',
                 user     : 'root',
                 password : '',
                 database : 'ghost_testing',
@@ -124,7 +124,7 @@ config = {
             }
         },
         server: {
-            host: '0.0.0.0',
+            host: '127.0.0.1',
             port: '2369'
         },
         logging: false
@@ -133,11 +133,11 @@ config = {
     // ### Testing pg
     // Used by Travis - Automated testing run through GitHub
     'testing-pg': {
-        url: 'http://0.0.0.0:2369',
+        url: 'http://127.0.0.1:2369',
         database: {
             client: 'pg',
             connection: {
-                host     : '0.0.0.0',
+                host     : '127.0.0.1',
                 user     : 'postgres',
                 password : '',
                 database : 'ghost_testing',
@@ -145,7 +145,7 @@ config = {
             }
         },
         server: {
-            host: '0.0.0.0',
+            host: '127.0.0.1',
             port: '2369'
         },
         logging: false
