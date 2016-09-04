@@ -65,6 +65,16 @@ config = {
                 charset  : 'utf8'
             }
         },
+        // #### S3 Storage
+        storage: {
+            active: 'ghost-s3',
+            'ghost-s3': {
+                accessKeyId: 'GHOST_S3_ACCESSKEYID',
+                secretAccessKey: 'GHOST_S3_SECRETACCESSKEY',
+                bucket: 'GHOST_S3_BUCKET',
+                region: 'GHOST_S3_REGION'
+            }
+        },
         // #### Server
         // Can be host & port (default), or socket
         server: {
@@ -99,8 +109,7 @@ config = {
                     'PRAGMA locking_mode=EXCLUSIVE;' +
                     'BEGIN EXCLUSIVE; COMMIT;', done);
                 }
-            },
-            useNullAsDefault: true
+            }
         },
         server: {
             host: '127.0.0.1',

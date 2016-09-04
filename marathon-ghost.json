@@ -14,11 +14,15 @@
     }
   },
   "env": {
-    "GHOST_URL": "http://public-vhost",
+    "GHOST_URL": "http://localhost:2368",
     "MYSQL_HOST": "ghostmysql.marathon.l4lb.thisdcos.directory",
     "MYSQL_DATABASE": "db",
     "MYSQL_USER": "blog-user",
-    "MYSQL_PASSWORD": "supersecret"
+    "MYSQL_PASSWORD": "supersecret",
+    "GHOST_S3_ACCESSKEYID": "****",
+    "GHOST_S3_SECRETACCESSKEY": "****",
+    "GHOST_S3_BUCKET": "janr-ghost",
+    "GHOST_S3_REGION": "eu-central-1"
   },
   "labels": {
    "HAPROXY_0_VHOST": "public-vhost",
