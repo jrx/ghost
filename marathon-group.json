@@ -1,0 +1,111 @@
+{
+  "id": "/ghost",
+  "groups": [
+    {
+      "id": "/ghost/database",
+      "apps": [
+        {
+          "id": "/ghost/database/mysql",
+          "cmd": "docker-entrypoint.sh --datadir=/mnt/mesos/sandbox/mysqldata/",
+          "cpus": 1,
+          "mem": 1024,
+          "disk": 0,
+          "instances": 1,
+          "container": {
+            "type": "DOCKER",
+            "volumes": [
+              {
+                "containerPath": "mysqldata",
+                "mode": "RW",
+                "persistent": {
+                  "size": 500
+                }
+              }
+            ],
+            "docker": {
+              "image": "mysql:5.7",
+              "network": "BRIDGE",
+              "portMappings": [
+                {
+                  "containerPort": 3306,
+                  "protocol": "tcp",
+                  "name": "mysql",
+                  "labels": {
+                    "VIP_0": "/ghost/mysql:3306"
+                  }
+                }
+              ],
+              "privileged": false,
+              "parameters": [],
+              "forcePullImage": false
+            }
+          },
+          "env": {
+            "MYSQL_ROOT_PASSWORD": "root",
+            "MYSQL_DATABASE": "db",
+            "MYSQL_USER": "blog-user",
+            "MYSQL_PASSWORD": "supersecret"
+          },
+          "healthChecks": [
+            {
+              "protocol": "TCP",
+              "portIndex": 0,
+              "gracePeriodSeconds": 300,
+              "intervalSeconds": 60,
+              "timeoutSeconds": 20,
+              "maxConsecutiveFailures": 3,
+              "ignoreHttp1xx": false
+            }
+          ]
+        }
+
+       ]
+    },{
+      "id": "/ghost/service",
+      "dependencies": ["/ghost/database"],
+      "apps": [
+        {
+          "id": "/ghost/service/blog",
+          "cpus": 1,
+          "mem": 512,
+          "disk": 0,
+          "container": {
+            "docker": {
+              "image": "janr/ghost",
+              "forcePullImage": true,
+              "portMappings": [
+                {
+                  "containerPort": 2368,
+                  "protocol": "tcp"
+                }
+              ],
+              "network": "BRIDGE"
+            }
+          },
+          "env": {
+            "GHOST_URL": "http://localhost:2368",
+            "MYSQL_HOST": "ghostmysql.marathon.l4lb.thisdcos.directory",
+            "MYSQL_DATABASE": "db",
+            "MYSQL_USER": "blog-user",
+            "MYSQL_PASSWORD": "supersecret",
+            "GHOST_S3_ACCESSKEYID": "****",
+            "GHOST_S3_SECRETACCESSKEY": "****",
+            "GHOST_S3_BUCKET": "janr-ghost",
+            "GHOST_S3_REGION": "eu-central-1"
+          },
+          "labels": {
+           "HAPROXY_0_VHOST": "public-vhost",
+           "HAPROXY_GROUP": "external"
+         },
+         "healthChecks": [
+           {
+             "path": "/",
+             "protocol": "HTTP",
+             "portIndex": 0
+           }
+         ]
+        }
+      ]
+    }
+  ]
+}
