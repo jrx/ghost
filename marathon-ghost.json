@@ -1,5 +1,8 @@
 {
   "id": "/ghost/blog",
+  "cpus": 1,
+  "mem": 512,
+  "disk": 0,
   "container": {
     "docker": {
       "image": "janr/ghost",
@@ -28,7 +31,11 @@
    "HAPROXY_0_VHOST": "public-vhost",
    "HAPROXY_GROUP": "external"
  },
-  "cpus": 1,
-  "mem": 512,
-  "disk": 0
+ "healthChecks": [
+   {
+     "path": "/",
+     "protocol": "HTTP",
+     "portIndex": 0
+   }
+ ]
 }
