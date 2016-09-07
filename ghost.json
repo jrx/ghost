@@ -5,7 +5,7 @@
   "disk": 0,
   "container": {
     "docker": {
-      "image": "janr/ghost",
+      "image": "janr/ghost:v1",
       "forcePullImage": true,
       "portMappings": [
         {
@@ -17,7 +17,7 @@
     }
   },
   "env": {
-    "GHOST_URL": "http://localhost:2368",
+    "GHOST_URL": "http://ghost.jrx.de",
     "MYSQL_HOST": "ghostmysql.marathon.l4lb.thisdcos.directory",
     "MYSQL_DATABASE": "db",
     "MYSQL_USER": "blog-user",
@@ -28,7 +28,7 @@
     "GHOST_S3_REGION": "eu-central-1"
   },
   "labels": {
-   "HAPROXY_0_VHOST": "public-vhost",
+   "HAPROXY_0_VHOST": "ghost.jrx.de",
    "HAPROXY_GROUP": "external"
  },
  "healthChecks": [

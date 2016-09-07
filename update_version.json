@@ -1,0 +1,15 @@
+{
+  "container": {
+    "docker": {
+      "image": "janr/ghost:v2",
+      "forcePullImage": true,
+      "portMappings": [
+        {
+          "containerPort": 2368,
+          "protocol": "tcp"
+        }
+      ],
+      "network": "BRIDGE"
+    }
+  }
+}

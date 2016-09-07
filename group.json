@@ -2,7 +2,7 @@
   "id": "/ghost",
   "groups": [
     {
-      "id": "/ghost/database",
+      "id": "/ghost/database:v1",
       "apps": [
         {
           "id": "/ghost/database/mysql",
@@ -71,7 +71,7 @@
           "disk": 0,
           "container": {
             "docker": {
-              "image": "janr/ghost",
+              "image": "janr/ghost:v1",
               "forcePullImage": true,
               "portMappings": [
                 {
