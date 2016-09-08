@@ -1,8 +1,8 @@
 FROM ghost:0.9.0
 COPY ./config.js /usr/src/ghost/config.js
-COPY ./screen.css /usr/src/ghost/content/themes/casper/assets/css/screen.css
 COPY ./setup-env.sh /usr/src/ghost/setup-env.sh
 RUN npm install ghost-s3-compat
 RUN mkdir content/storage
 RUN cp -r node_modules/ghost-s3-compat content/storage/ghost-s3
+RUN sed -i 's,<header class="main-header ,<header style="background: red;" class="main-header ,' /usr/src/ghost/content/themes/casper/index.hbs
 CMD /bin/sh /usr/src/ghost/setup-env.sh && npm start
